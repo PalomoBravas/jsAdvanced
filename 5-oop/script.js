@@ -17,8 +17,6 @@ const Orc = function (race, personName, language, weapon) {
 }
 
 Orc.prototype = Object.create(Character.prototype);
-// Orc.prototype.constructor = Orc;
-
 Orc.prototype.strike = function () {
   console.log(`I strike of a ${this.weapon}.`);
 }
@@ -30,7 +28,6 @@ const Elf = function (race, personName, language, mantra) {
 }
 
 Elf.prototype = Object.create(Character.prototype)
-// Elf.prototype.constructor = Elf
 Elf.prototype.wiz = function () {
   console.log(`I wiz of a ${this.mantra}`);
 }

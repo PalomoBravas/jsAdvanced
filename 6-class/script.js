@@ -10,20 +10,20 @@ class Car {
     this.#model = model
   }
 
-  get mileageGet () {
-    console.log(this.#mileage);
+  get mileage () {
+    return this.#mileage;
   }
 
-  set mileageSet (mileage) {
+  set mileage (mileage) {
     this.#mileage = mileage;
   }
 
   info() {
-    console.log(`This ${this.#brand} ${this.#model} with mileage ${this.#mileage}`);
+    console.log(`This ${this.#brand} ${this.#model} with mileage ${this.mileage}`);
   }
 }
 
 const car1 = new Car('BMV', 'X5');
-car1.mileageGet;
-car1.mileageSet = 40000;
+car1.mileage;
+car1.mileage = 40000;
 car1.info();
