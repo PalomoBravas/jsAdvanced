@@ -1,5 +1,7 @@
 'use strict';
 
+const POKEMON_BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
+
 function getData (url, messageError) {
   return fetch(url)
     .then((response) => {
@@ -10,8 +12,8 @@ function getData (url, messageError) {
     })
     .catch(error => console.log(error.message));
 }
-function requestPokemon (url) {
-  return getData(url)
+function requestPokemon (name) {
+  return getData(`${POKEMON_BASE_URL}/${name}`)
     .then(data => getData(data.abilities[0].ability.url))
     .then((data) => {
       return data.effect_entries
@@ -27,4 +29,4 @@ function requestPokemon (url) {
     })
 }
 
-requestPokemon('https://pokeapi.co/api/v2/pokemon/ditto').then(answer => console.log(answer));
+requestPokemon('ditto').then(answer => console.log(answer));
