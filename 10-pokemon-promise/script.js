@@ -29,4 +29,6 @@ function requestPokemon (name) {
     })
 }
 
-requestPokemon('ditto').then(answer => console.log(answer));
+requestPokemon('ditto')
+  .then(answer => console.log(answer))
+  .catch(error => console.error(error))
