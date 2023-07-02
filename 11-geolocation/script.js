@@ -16,7 +16,9 @@ function getCoordinates() {
   });
 }
 
-getCoordinates().then((data) => {
+getCoordinates()
+  .then((data) => {
   console.log(`Latitude: ${data.latitude}`);
   console.log(`Longitude: ${data.longitude}`);
-});
+})
+  .catch(error => console.error(error))
