@@ -17,8 +17,6 @@ const PLURAL = {
   second: ['секунд', 'секунды', 'секунда'],
 }
 
-
-
 function getDatesDiff() {
   const dateNow = new Date()
   const currentMonthDaysAmount = new Date(dateNow.getFullYear(), dateNow.getMonth() + 1, 0 ).getDate();
@@ -32,22 +30,17 @@ function getDatesDiff() {
 }
 
 function pluralizeText(count, arr) {
-  const result = []
     const grammaticalNumber = pluralRules.select(Number(count));
     switch (grammaticalNumber) {
       case 'one':
-        result.push(`${count} ${arr[2]}`);
-        break;
+        return `${count} ${arr[2]}`;
       case 'few':
-        result.push(`${count} ${arr[1]}`);
-        break;
+        return `${count} ${arr[1]}`;
       case 'many':
-        result.push(`${count} ${arr[0]}`);
-        break;
+        return `${count} ${arr[0]}`
       default:
         throw new Error('Error in pluralizeTimerText');
     }
-  return result.join(' ')
 }
 
 function getTimerText() {
