@@ -1,9 +1,6 @@
 'use strict';
 
 class Character {
-  race;
-  personName;
-  language;
   constructor(race, personName, language) {
     this.race = race;
     this.personName = personName;
@@ -15,12 +12,9 @@ class Character {
 }
 
 class Orc extends Character {
-  weapon;
-  constructor(personName, language, weapon) {
-    super(personName, language);
+  constructor(race, personName, language, weapon) {
+    super(race, personName, language);
     this.race = 'orc';
-    this.personName = personName;
-    this.language = language;
     this.weapon = weapon;
   }
   strike() {
@@ -29,22 +23,18 @@ class Orc extends Character {
 }
 
 class Elf extends Character {
-  mantra;
-  constructor(personName, language, mantra) {
-    super(personName, language);
-    this.race = 'elf'
-    this.personName = personName;
-    this.language = language;
+  constructor(race, personName, language, mantra) {
+    super(race, personName, language);
+    this.race = 'elf';
     this.mantra = mantra;
   }
-
   wiz() {
     console.log(`I wiz of a ${this.mantra}`);
   }
 }
 
-const orc1 = new Orc('Vladimir', 'rus', 'Big Nuke');
-const elf1 = new Elf('John', 'en', 'Red Fog');
+const orc1 = new Orc( '','Vladimir', 'rus', 'Big Nuke');
+const elf1 = new Elf( '','John', 'en', 'Red Fog');
 
 console.log(orc1);
 console.log(elf1);
