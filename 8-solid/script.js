@@ -1,25 +1,22 @@
 'use strict';
 
 class Billing {
-  amount;
+  constructor(amount) {
+    this.amount = amount
+  }
   calculateTotal () {
     console.log(this.amount)
   }
 }
 
-class fixBilling extends Billing {
-  amount = 100;
-}
+class fixBilling extends Billing {}
 
 class hourBilling extends Billing {
-  hour;
-  amount = 10;
-  constructor(hour) {
-    super();
-    this.hour = hour;
+  constructor(amount) {
+    super(amount);
   }
-  calculateTotal() {
-    console.log(this.hour * this.amount)
+  calculateTotal(hours) {
+    console.log(this.amount * hours)
   }
 }
 
@@ -29,21 +26,19 @@ class itemBilling extends Billing {
     item2: 200,
     item3: 300,
   }
-  constructor(item, count) {
-    super();
-    this.item = item;
-    this.count = count;
+  constructor(amount) {
+    super(amount);
   }
 
-  calculateTotal() {
-    console.log(this.items[this.item] * this.count );
+  calculateTotal(item) {
+    console.log(this.items[item] * this.amount);
   }
 }
 
-const bill = new fixBilling();
+const bill = new fixBilling(100);
 const bill1 = new hourBilling(50);
-const bill2 = new itemBilling('item2', 4);
+const bill2 = new itemBilling(4);
 
 bill.calculateTotal();
-bill1.calculateTotal();
-bill2.calculateTotal();
+bill1.calculateTotal(20);
+bill2.calculateTotal('item3');
