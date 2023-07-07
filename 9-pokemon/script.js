@@ -10,11 +10,11 @@ function printToConsole(data) {
   console.log(data)
 }
 
-function requestPokemon(name, callback_one, callback_two) {
-  callback_one(`${ROOT_POKEMON_URL}${name}`, callback_two)
+function requestPokemon(name, getCallback, useCallback) {
+  getCallback(`${ROOT_POKEMON_URL}${name}`, useCallback)
 }
 
-function getPokemonEngEffect(url, callback) {
+function getPokemonEngEffect(url, useCallback) {
   const request = new XMLHttpRequest();
   request.open('GET', url );
   request.send();
@@ -33,7 +33,7 @@ function getPokemonEngEffect(url, callback) {
 
         for (const el of effectEntries) {
           if (el.language.name === 'en') {
-            useDate(el.effect, callback);
+            useDate(el.effect, useCallback);
           }
         }
       })
