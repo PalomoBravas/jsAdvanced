@@ -1,46 +1,48 @@
 'use strict';
 
 class Character {
-  constructor(race, personName, language) {
-    this.race = race;
+  _race;
+  constructor(personName, language) {
     this.personName = personName;
     this.language = language;
   }
   speak() {
-    console.log(`I'm ${this.race}. My name is ${this.personName}. I mother language is ${this.language}.`);
+    console.log(`I'm ${this._race}. My name is ${this.personName}. I mother language is ${this.language}.`);
+  }
+  hit(){
   }
 }
 
 class Orc extends Character {
-  constructor(race, personName, language, weapon) {
-    super(race, personName, language);
-    this.race = 'orc';
+  _race = 'orc'
+  constructor(personName, language, weapon) {
+    super(personName, language);
     this.weapon = weapon;
   }
-  strike() {
+  hit() {
     console.log(`I strike of a ${this.weapon}.`);
   }
 }
 
 class Elf extends Character {
-  constructor(race, personName, language, mantra) {
-    super(race, personName, language);
-    this.race = 'elf';
+  _race = 'elf'
+  constructor(personName, language, mantra) {
+    super(personName, language);
     this.mantra = mantra;
   }
-  wiz() {
+  hit() {
     console.log(`I wiz of a ${this.mantra}`);
   }
 }
 
-const orc1 = new Orc( '','Vladimir', 'rus', 'Big Nuke');
-const elf1 = new Elf( '','John', 'en', 'Red Fog');
+const orc1 = new Orc( 'Vladimir', 'rus', 'Big Nuke');
+const elf1 = new Elf( 'John', 'en', 'Red Fog');
 
 console.log(orc1);
 console.log(elf1);
 
 orc1.speak();
-orc1.strike();
+orc1.hit();
 
 elf1.speak();
-elf1.wiz();
+elf1.hit();

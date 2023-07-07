@@ -9,9 +9,9 @@ class Billing {
   }
 }
 
-class fixBilling extends Billing {}
+class FixBilling extends Billing {}
 
-class hourBilling extends Billing {
+class HourBilling extends Billing {
   constructor(amount) {
     super(amount);
   }
@@ -20,24 +20,24 @@ class hourBilling extends Billing {
   }
 }
 
-class itemBilling extends Billing {
-  items = {
-    item1: 100,
-    item2: 200,
-    item3: 300,
-  }
-  constructor(amount) {
+class ItemBilling extends Billing {
+  constructor(itemsPrice, amount) {
     super(amount);
+    this.itemsPrice = itemsPrice
   }
 
   calculateTotal(item) {
-    console.log(this.items[item] * this.amount);
+    console.log(this.itemsPrice[item] * this.amount);
   }
 }
 
-const bill = new fixBilling(100);
-const bill1 = new hourBilling(50);
-const bill2 = new itemBilling(4);
+const bill = new FixBilling(100);
+const bill1 = new HourBilling(50);
+const bill2 = new ItemBilling({
+  item1: 100,
+  item2: 200,
+  item3: 300,
+},4);
 
 bill.calculateTotal();
 bill1.calculateTotal(20);

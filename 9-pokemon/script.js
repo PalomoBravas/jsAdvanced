@@ -1,10 +1,20 @@
 'use strict';
 
-function displayEffect(effect) {
-  console.log(effect)
+const ROOT_POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon/'
+
+function useDate(effect, callback) {
+  callback(effect)
 }
 
-function requestPokemon(url) {
+function printToConsole(data) {
+  console.log(data)
+}
+
+function requestPokemon(name, callback_one, callback_two) {
+  callback_one(`${ROOT_POKEMON_URL}${name}`, callback_two)
+}
+
+function getPokemonEngEffect(url, callback) {
   const request = new XMLHttpRequest();
   request.open('GET', url );
   request.send();
@@ -23,14 +33,12 @@ function requestPokemon(url) {
 
         for (const el of effectEntries) {
           if (el.language.name === 'en') {
-            displayEffect(el.effect)
+            useDate(el.effect, callback);
           }
         }
       })
     }
   })
-
-
 }
 
-requestPokemon('https://pokeapi.co/api/v2/pokemon/ditto')
+requestPokemon('ditto', getPokemonEngEffect, printToConsole)
