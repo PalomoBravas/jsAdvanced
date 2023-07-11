@@ -1,39 +1,30 @@
 'use strict';
 
-const ROOT_POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon/'
+const ROOT_POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon';
 
-function useDate(effect, callback) {
-  callback(effect)
+function consoleDate(data) {
+  console.log(data);
 }
 
-function printToConsole(data) {
-  console.log(data)
-}
-
-function requestPokemon(name, getCallback, useCallback) {
-  getCallback(`${ROOT_POKEMON_URL}${name}`, useCallback)
-}
-
-function getPokemonEngEffect(url, useCallback) {
+function getPokemonEffect(name, callback) {
   const request = new XMLHttpRequest();
-  request.open('GET', url );
+  request.open('GET', `${ROOT_POKEMON_URL}/${name}`);
   request.send();
-
   request.addEventListener('load', function () {
     const url = (JSON.parse(this.responseText).abilities)[0].ability.url;
     if (!url) {
-      return null
+      return null;
     } else {
       const request = new XMLHttpRequest();
       request.open('GET',url );
-      request.send()
-
+      request.send();
       request.addEventListener('load', function () {
-        const effectEntries = JSON.parse(this.responseText).effect_entries
-
+        const effectEntries = JSON.parse(this.responseText).effect_entries;
         for (const el of effectEntries) {
           if (el.language.name === 'en') {
-            useDate(el.effect, useCallback);
+           if (typeof callback === 'function') {
+             callback(el.effect);
+           }
           }
         }
       })
@@ -41,4 +32,4 @@ function getPokemonEngEffect(url, useCallback) {
   })
 }
 
-requestPokemon('ditto', getPokemonEngEffect, printToConsole)
+getPokemonEffect('ditto', consoleDate);
