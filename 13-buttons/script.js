@@ -1,64 +1,62 @@
 "use strict";
-const buttonsState = [];
-const countState = {count: 0};
+
+const state = {count: 0, pressedButtonId: '', buttonsState: []};
 const counter = document.querySelector('.counter-output');
-counter.innerHTML = countState.count
 const buttonsBlock = document.querySelector('.button__wrapper');
 
-function buttonsStateInit(length) {
+function updateCommonCounter() {
+  counter.innerHTML = state.count;
+}
+
+function initButtonsState(length) {
   for(let i = 1; i<= length; i++){
-    buttonsState.push({id: i, numberOfClicks: 0, toggle: false,})
+    state.buttonsState.push({id: i.toString(), count: 0,})
   }
 }
 
 function renderButtons() {
-  buttonsBlock.innerHTML = ''
+  const btnArr = [];
+  const pressedButtonId = state.pressedButtonId;
+  const buttonsState = state.buttonsState;
   for (const buttonState of buttonsState) {
-    const button = document.createElement("button")
-    button.classList.add('button')
-    button.id = buttonState.id.toString()
-    if(buttonState.toggle) {
-      button.classList.remove('unpressed')
-      button.classList.add('pressed')
-      button.innerHTML = `Pressed <br> ${buttonState.numberOfClicks}`
-    } else {
-      button.classList.add('unpressed')
-      button.classList.remove('pressed')
-      button.innerHTML = `Press Me <br> ${buttonState.numberOfClicks}`
-    }
-    buttonsBlock.append(button)
+    const button = createButton(pressedButtonId, buttonState)
+    btnArr.push(button)
   }
+  buttonsBlock.innerHTML =  btnArr.join("\n")
 }
 
-function pressButton(e) {
-  const buttonId = e.target.id
-  for (const button of buttonsState) {
-    if(button.id === Number(buttonId)) {
-      if(button.toggle === true) {
-        return null
-      }
-      button.numberOfClicks ++;
-      button.toggle = true
-      countState.count ++;
-    } else {
-      button.toggle = false
-    }
+function createButton(pressedButtonId, buttonsState) {
+  const className = pressedButtonId === buttonsState.id ? 'pressed' : '';
+  const buttonText = pressedButtonId === buttonsState.id ? 'Pressed' : 'Press Me';
+  return `
+      <button id="${buttonsState.id}" class="button ${className}">
+         ${buttonText}<br/>${buttonsState.count}
+      </button>`;
+}
+
+function onPressButton(e) {
+  if(e.target.id === state.pressedButtonId) {
+    return;
   }
+  state.pressedButtonId = e.target.id
+  state.count ++;
+  state.buttonsState[e.target.id-1].count ++;
   rerender()
 }
 
 function rerender() {
-  counter.innerHTML = countState.count
+  updateCommonCounter()
   renderButtons()
 }
 
-function run(numberOfButtons) {
-  buttonsStateInit(numberOfButtons)
-  renderButtons()
-  buttonsBlock.addEventListener('click', (e) => pressButton(e))
+function buttonsAmount(numberOfButtons) {
+  updateCommonCounter();
+  initButtonsState(numberOfButtons);
+  renderButtons();
+  buttonsBlock.addEventListener('click', onPressButton);
 }
 
-run(5);
+buttonsAmount(5);
 
 
 

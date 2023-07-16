@@ -29,13 +29,13 @@
     border: none;
     text-transform: uppercase;
     cursor: pointer;
-}
-.unpressed:hover {
-    background: #00138b;
-}
-.unpressed {
     background: darkcyan;
 }
+
+.button:hover {
+    background: #00138b;
+}
+
 .pressed {
     background: #bef0f1;
     color: #004949;
