@@ -9,25 +9,20 @@ function updateCommonCounter() {
 }
 
 function initButtonsState(length) {
-  for(let i = 1; i<= length; i++){
+  for(let i = 0; i < length; i++){
     state.buttonsState.push({id: i.toString(), count: 0,})
   }
 }
 
 function renderButtons() {
-  const btnArr = [];
-  const pressedButtonId = state.pressedButtonId;
-  const buttonsState = state.buttonsState;
-  for (const buttonState of buttonsState) {
-    const button = createButton(pressedButtonId, buttonState)
-    btnArr.push(button)
-  }
-  buttonsBlock.innerHTML =  btnArr.join("\n")
+  buttonsBlock.innerHTML = state.buttonsState
+    .map(buttonState => createButton(buttonState.id === state.pressedButtonId, buttonState))
+    .join("");
 }
 
-function createButton(pressedButtonId, buttonsState) {
-  const className = pressedButtonId === buttonsState.id ? 'pressed' : '';
-  const buttonText = pressedButtonId === buttonsState.id ? 'Pressed' : 'Press Me';
+function createButton(isPressed, buttonsState) {
+  const className = isPressed ? 'pressed' : '';
+  const buttonText = isPressed ? 'Pressed' : 'Press Me';
   return `
       <button id="${buttonsState.id}" class="button ${className}">
          ${buttonText}<br/>${buttonsState.count}
@@ -35,32 +30,22 @@ function createButton(pressedButtonId, buttonsState) {
 }
 
 function onPressButton(e) {
-  if(e.target.id === state.pressedButtonId) {
-    return;
-  }
   state.pressedButtonId = e.target.id
   state.count ++;
-  state.buttonsState[e.target.id-1].count ++;
-  rerender()
+  state.buttonsState[e.target.id].count ++;
+  updateLayout()
 }
 
-function rerender() {
+function updateLayout() {
   updateCommonCounter()
   renderButtons()
 }
 
-function buttonsAmount(numberOfButtons) {
+function initButtons(buttonsAmount) {
   updateCommonCounter();
-  initButtonsState(numberOfButtons);
+  initButtonsState(buttonsAmount);
   renderButtons();
   buttonsBlock.addEventListener('click', onPressButton);
 }
 
-buttonsAmount(5);
-
-
-
-
-
-
-
+initButtons(5);
