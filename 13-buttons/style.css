@@ -1,0 +1,45 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.counter {
+    min-width: 580px;
+    max-width: 580px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: coral;
+    font-family: sans-serif;
+    font-size: 48px;
+    color: white;
+    margin-bottom: 20px;
+}
+.button__wrapper {
+    display: flex;
+    gap: 20px;
+}
+.button {
+    min-width: 100px;
+    max-width: 100px;
+    height: 50px;
+    color: #a9f8f8;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: darkcyan;
+}
+
+.button:hover {
+    background: #00138b;
+}
+
+.pressed {
+    background: #bef0f1;
+    color: #004949;
+}
+
